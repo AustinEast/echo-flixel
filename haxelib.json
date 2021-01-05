@@ -6,7 +6,7 @@
     "flixel",
     "physics"
   ],
-  "description": "",
+  "description": "Integrates echo physics with Haxeflixel",
   "contributors": [
     "austineast",
     "01010111"
