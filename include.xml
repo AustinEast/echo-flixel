@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	<!-- Adds an `object` field with `FlxObject` type to echo's `Body` class -->
+	<haxeflag name="--macro" value="echo.Macros.add_data('object','flixel.FlxObject')"/>
+</project>

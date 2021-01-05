@@ -1,0 +1,8 @@
+{
+	"haxe.diagnosticsPathFilter": "${workspaceRoot}/source",
+	"search.exclude": {
+		"export/**/*.hx": true
+	},
+	"lime.defaultBuildConfiguration": "Debug",
+	"lime.defaultTarget": "Neko"
+}

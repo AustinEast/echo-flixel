@@ -1,0 +1,20 @@
+{
+  "name": "echo-flixel",
+  "license": "MIT",
+  "tags": [
+    "echo",
+    "flixel",
+    "physics"
+  ],
+  "description": "",
+  "contributors": [
+    "austineast",
+    "01010111"
+  ],
+  "releasenote": "",
+  "version": "0.0.1",
+  "dependencies": {
+    "flixel": "",
+    "echo": ""
+  }
+}

@@ -1,0 +1,43 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Flash",
+			"type": "fdb",
+			"request": "launch",
+			"program": "${workspaceFolder}/export/flash/bin/flixel-echo.swf",
+			"preLaunchTask": "debug: flash"
+		},
+		{
+			"name": "HTML5",
+			"type": "chrome",
+			"request": "launch",
+			"url": "http://127.0.0.1:3000",
+			"sourceMaps": true,
+			"webRoot": "${workspaceFolder}"
+		},
+		{
+			"name": "Windows",
+			"type": "hxcpp",
+			"request": "launch",
+			"program": "${workspaceFolder}/export/windows/bin/flixel-echo.exe"
+		},
+		{
+			"name": "Linux",
+			"type": "hxcpp",
+			"request": "launch",
+			"program": "${workspaceFolder}/export/linux64/bin/flixel-echo"
+		},
+		{
+			"name": "Mac",
+			"type": "hxcpp",
+			"request": "launch",
+			"program": "${workspaceFolder}/export/mac64/bin/flixel-echo.app/Contents/MacOS/flixel-echo"
+		},
+		{
+			"name": "Macro",
+			"type": "haxe-eval",
+			"request": "launch"
+		}
+	]
+}
