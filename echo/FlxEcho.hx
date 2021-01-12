@@ -382,6 +382,9 @@ class FlxEcho extends FlxBasic
 
 	override public function update(elapsed:Float)
 	{
+		#if FLX_DEBUG
+    if (debug_drawer != null)debug_drawer.clear();
+		#end
 		if (updates)
 			world.step(elapsed);
 
@@ -400,7 +403,7 @@ class FlxEcho extends FlxBasic
 		debug_drawer.camera.set_from_min_max(FlxG.camera.scroll.x, FlxG.camera.scroll.y, FlxG.camera.scroll.x + FlxG.camera.width,
 			FlxG.camera.scroll.y + FlxG.camera.height);
 
-		debug_drawer.draw(world);
+		debug_drawer.draw(world, false);
 
 		var s = debug_drawer.canvas;
 		s.x = s.y = 0;
