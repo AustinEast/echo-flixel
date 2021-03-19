@@ -36,11 +36,5 @@ Add the library into your `Project.xml`:
 ## Usage
 TODO
 
-```haxe
-
-```
 ## Example
-TODO
-```haxe
-
-```
+TODO (In the meantime, check the `sample` directory for an simple example)
