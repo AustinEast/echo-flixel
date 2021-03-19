@@ -3,7 +3,9 @@
 </p>
 
 # echo-flixel
-Integrate echo physics with Haxeflixel
+Integrate echo physics with Haxeflixel! 
+
+This library utilizes Haxeflixel's Plugin system to automatically work with the normal flixel workflow. It also adds a new button to Haxeflixel's debugger (click the new "E" icon in the top bar) for easy physics debugging.
 
 ## Getting Started
 
