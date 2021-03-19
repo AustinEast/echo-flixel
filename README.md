@@ -37,4 +37,4 @@ Add the library into your `Project.xml`:
 TODO
 
 ## Example
-TODO (In the meantime, check the `sample` directory for an simple example)
+TODO (In the meantime, check the `sample` directory for a simple example)
