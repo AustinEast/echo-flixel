@@ -79,8 +79,7 @@ class FlxEcho extends FlxBasic
 
 		if (instance == null)
 		{
-			instance = new FlxEcho(options);
-			FlxG.plugins.add(instance);
+			FlxG.plugins.add(instance = new FlxEcho(options));
 			FlxG.signals.preStateSwitch.add(on_state_switch);
 		}
 
