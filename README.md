@@ -9,7 +9,7 @@ This library utilizes Haxeflixel's Plugin system to automatically work with the 
 
 ## Getting Started
 
-echo-flixel requires [Haxe 4](https://haxe.org/download/) to run.
+echo-flixel requires [Haxe 4.2+](https://haxe.org/download/) to run.
 
 
 Install the echo-flixel library from github (temporary, until echo-flixel is on haxelib):
@@ -22,11 +22,6 @@ Install the echo library from haxelib:
 haxelib install echo
 ```
 
-Install echo's dependency, [hxmath](https://lib.haxe.org/p/hxmath). At the moment, installing the github version is recommended for performance reasons:
-```
-haxelib git hxmath https://github.com/tbrosman/hxmath.git
-```
-
 Add the library into your `Project.xml`:
 
 ```xml
@@ -37,4 +32,4 @@ Add the library into your `Project.xml`:
 TODO
 
 ## Example
-TODO (In the meantime, check the `sample` directory for a simple example)
+TODO (In the meantime, check the `sample` directory for some simple examples)

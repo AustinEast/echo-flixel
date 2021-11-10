@@ -12,11 +12,14 @@ import echo.util.TileMap;
 
 using Math;
 using echo.FlxEcho;
-using hxmath.math.Vector2;
+using echo.math.Vector2;
 using flixel.util.FlxArrayUtil;
 using flixel.util.FlxSpriteUtil;
 
-class PlayState extends FlxState
+/**
+ * Sample originally written by @01010111
+ */
+class PlatformerSampleState extends FlxState
 {
 
 	var player:Box;
@@ -98,7 +101,7 @@ class PlayState extends FlxState
 				// for every instance of collision data
 				for (col in c) {
 					// This checks to see if the normal of our collision is pointing downward - you could use it for hop and bop games to see if a player has stomped on an enemy!
-					if (col.normal.dot(Vector2.yAxis).round() == 1) {
+					if (col.normal.dot(Vector2.up).round() == 1) {
 						// set the player's velocity to go up!
 						a.velocity.y = -400;
 						// animate the orange box!

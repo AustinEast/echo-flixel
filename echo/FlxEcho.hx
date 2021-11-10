@@ -1,5 +1,6 @@
 package echo;
 
+import echo.util.verlet.Verlet;
 import echo.Body;
 import echo.Echo;
 import echo.World;
@@ -17,7 +18,7 @@ import flixel.util.FlxColor;
 
 using Math;
 using Std;
-using hxmath.math.Vector2;
+using echo.math.Vector2;
 
 #if FLX_DEBUG
 import echo.util.Debug.OpenFLDebug;
@@ -48,6 +49,7 @@ class FlxEcho extends FlxBasic
 	public static var draw_debug(default, set):Bool;
 
 	public var world(default, null):World;
+	public var verlet(default, null):Verlet;
 	public var groups:Map<FlxGroup, Array<Body>>;
 	public var bodies:Map<FlxObject, Body>;
 
@@ -140,8 +142,8 @@ class FlxEcho extends FlxBasic
 	{
 		options = get_listener_options(options);
 
-		var a_is_object = a.is(FlxObject);
-		var b_is_object = b.is(FlxObject);
+		var a_is_object = a.isOfType(FlxObject);
+		var b_is_object = b.isOfType(FlxObject);
 
 		if (!a_is_object) add_group_bodies(cast a);
 		if (!b_is_object) add_group_bodies(cast b);
@@ -157,8 +159,8 @@ class FlxEcho extends FlxBasic
 	{
 		options = get_listener_options(options);
 
-		var a_is_object = a.is(FlxObject);
-		var b_is_object = b.is(FlxObject);
+		var a_is_object = a.isOfType(FlxObject);
+		var b_is_object = b.isOfType(FlxObject);
 
 		if (!a_is_object) add_group_bodies(cast a);
 		if (!b_is_object) add_group_bodies(cast b);
@@ -284,8 +286,8 @@ class FlxEcho extends FlxBasic
 		{
 			if (temp_stay != null) temp_stay(a, b, c);
 			if (options.separate == null || options.separate) for (col in c) {
-				set_touching(get_object(a), [CEILING, WALL, FLOOR] [col.normal.dot(Vector2.yAxis).round() + 1]);
-				set_touching(get_object(b), [CEILING, WALL, FLOOR] [col.normal.negate().dot(Vector2.yAxis).round() + 1]);
+				set_touching(get_object(a), [CEILING, WALL, FLOOR] [col.normal.dot(Vector2.up).round() + 1]);
+				set_touching(get_object(b), [CEILING, WALL, FLOOR] [col.normal.negate().dot(Vector2.up).round() + 1]);
 			} 
 		}
 		#if ARCADE_PHYSICS
@@ -323,11 +325,11 @@ class FlxEcho extends FlxBasic
 	static function square_normal(normal:Vector2)
 	{
 		var len = normal.length;
-		var dot_x = normal.dot(Vector2.xAxis);
-		var dot_y = normal.dot(Vector2.yAxis);
+		var dot_x = normal.dot(Vector2.right);
+		var dot_y = normal.dot(Vector2.up);
 		if (dot_x.abs() > dot_y.abs()) dot_x > 0 ? normal.set(1, 0) : normal.set(-1, 0); else
 			dot_y > 0 ? normal.set(0, 1) : normal.set(0, -1);
-		normal.normalizeTo(len);
+		normal.length = len;
 	}
 
 	static function on_state_switch()
@@ -377,15 +379,23 @@ class FlxEcho extends FlxBasic
 		groups = [];
 		bodies = [];
 		world = Echo.start(options);
+		verlet = new Verlet({
+			width: options.width, 
+			height: options.height, 
+			gravity_x: options.gravity_x, 
+			gravity_y: options.gravity_y
+		});
 	}
 
 	override public function update(elapsed:Float)
 	{
 		#if FLX_DEBUG
-    if (debug_drawer != null)debug_drawer.clear();
+    if (debug_drawer != null) debug_drawer.clear();
 		#end
-		if (updates)
+		if (updates) {
 			world.step(elapsed);
+			verlet.step(elapsed);
+		}
 
 		for (body in bodies) update_body_object(body);
 	}
@@ -403,10 +413,12 @@ class FlxEcho extends FlxBasic
 			FlxG.camera.scroll.y + FlxG.camera.height);
 
 		debug_drawer.draw(world, false);
+		debug_drawer.draw_verlet(verlet);
 
 		var s = debug_drawer.canvas;
 		s.x = s.y = 0;
 		s.scaleX = s.scaleY = 1;
+		s.rotation = FlxG.camera.angle;
 		FlxG.camera.transformObject(s);
 	}
 	#end
@@ -419,6 +431,7 @@ class FlxEcho extends FlxBasic
 		bodies.clear();
 		groups.clear();
 		world.dispose();
+		verlet.dispose();
 
 		bodies = null;
 		groups = null;
