@@ -11,15 +11,10 @@ This library utilizes Haxeflixel's Plugin system to automatically work with the 
 
 echo-flixel requires [Haxe 4.2+](https://haxe.org/download/) to run.
 
-
-Install the echo-flixel library from github (temporary, until echo-flixel is on haxelib):
-```
-haxelib git echo-flixel https://github.com/AustinEast/echo-flixel.git
-```
-
-Install the echo library from haxelib:
+Install the `echo` and `echo-flixel` libraries from haxelib:
 ```
 haxelib install echo
+haxelib install echo-flixel
 ```
 
 Add the library into your `Project.xml`:
