@@ -6,6 +6,7 @@ import echo.util.verlet.Verlet;
 
 using echo.FlxEcho;
 
+// Build this scene in debug mode! The scene visuals rely on the debugger.
 class BasicSampleState extends FlxState {
 
   var objects:FlxGroup;
