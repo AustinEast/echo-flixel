@@ -376,6 +376,7 @@ class FlxEcho extends FlxBasic
 	public function new(options:WorldOptions)
 	{
 		super();
+
 		groups = [];
 		bodies = [];
 		world = Echo.start(options);
@@ -385,22 +386,13 @@ class FlxEcho extends FlxBasic
 			gravity_x: options.gravity_x, 
 			gravity_y: options.gravity_y
 		});
-	}
 
-	override public function update(elapsed:Float)
-	{
-		#if FLX_DEBUG
-    if (debug_drawer != null) debug_drawer.clear();
-		#end
-		if (updates) {
-			world.step(elapsed);
-			verlet.step(elapsed);
-		}
-
-		for (body in bodies) update_body_object(body);
+		FlxG.signals.postUpdate.add(on_post_update);
+		FlxG.signals.preDraw.add(on_pre_draw);
 	}
 
 	#if FLX_DEBUG
+	
 	@:access(flixel.FlxCamera)
 	override function draw()
 	{
@@ -427,6 +419,9 @@ class FlxEcho extends FlxBasic
 	{
 		super.destroy();
 
+		FlxG.signals.postUpdate.remove(on_post_update);
+		FlxG.signals.preDraw.remove(on_pre_draw);
+
 		for (body in bodies) body.dispose();
 		bodies.clear();
 		groups.clear();
@@ -436,5 +431,23 @@ class FlxEcho extends FlxBasic
 		bodies = null;
 		groups = null;
 		world = null;
+	}
+
+	function on_post_update()
+	{
+		if (updates) {
+			var elapsed = FlxG.elapsed;
+			world.step(elapsed);
+			verlet.step(elapsed);
+		}
+	
+		for (body in bodies) update_body_object(body);
+	}
+
+	function on_pre_draw()
+	{
+		#if FLX_DEBUG
+		if (debug_drawer != null) debug_drawer.clear();
+		#end	
 	}
 }
