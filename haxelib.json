@@ -11,8 +11,8 @@
     "austineast",
     "01010111"
   ],
-  "releasenote": "",
-  "version": "0.0.1",
+  "releasenote": "Fix update frame delay",
+  "version": "0.0.2",
   "dependencies": {
     "flixel": "",
     "echo": ""
