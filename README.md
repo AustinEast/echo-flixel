@@ -135,4 +135,22 @@ class BasicSampleState extends FlxState {
 }
 ```
 
+### To check collision with a line (raycast)
+
+```haxe
+using echo.FlxEcho;
+// ...
+var sprite = new FlxSprite();
+var body = sprite.add_body();
+// create a new line and replace the values where the line starts and ends
+var line = echo.Line.get(startX, startY, endX, endY);
+
+var result = sprite.linecast(line);
+// linecast returns null if no collision ocurred
+if (result != null) {
+
+}
+
+```
+
 Check the `sample` directory for all examples!
