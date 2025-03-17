@@ -12,6 +12,7 @@ import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxObject.*;
 import flixel.FlxObject;
+import flixel.util.FlxDirectionFlags;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.util.FlxColor;
@@ -286,9 +287,9 @@ class FlxEcho extends FlxBasic
 		{
 			if (temp_stay != null) temp_stay(a, b, c);
 			if (options.separate == null || options.separate) for (col in c) {
-				set_touching(get_object(a), [CEILING, WALL, FLOOR] [col.normal.dot(Vector2.up).round() + 1]);
-				set_touching(get_object(b), [CEILING, WALL, FLOOR] [col.normal.negate().dot(Vector2.up).round() + 1]);
-			} 
+				set_touching(get_object(a), [FlxDirectionFlags.UP, FlxDirectionFlags.NONE, FlxDirectionFlags.DOWN][col.normal.dot(Vector2.up).round() + 1]);
+				set_touching(get_object(b), [FlxDirectionFlags.UP, FlxDirectionFlags.NONE, FlxDirectionFlags.DOWN][col.normal.negate().dot(Vector2.up).round() + 1]);
+			}
 		}
 		#if ARCADE_PHYSICS
 		var temp_condition = options.condition;
@@ -319,7 +320,7 @@ class FlxEcho extends FlxBasic
 
 	static inline function set_touching(object:FlxObject, touching:Int)
 	{
-		if (object.touching & touching == 0) object.touching += touching;
+		if ((object.touching & touching) == 0) object.touching = object.touching | touching;
 	}
 
 	static function square_normal(normal:Vector2)
