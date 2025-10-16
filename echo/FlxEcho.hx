@@ -141,6 +141,18 @@ class FlxEcho extends FlxBasic
 	}
 
 	/**
+	 * Performs a one time line collision check against an FlxObject or a FlxGroup
+	 */
+  	public static function linecast(a:FlxBasic, line:Line):Null<echo.data.Data.Intersection>
+	{
+    	var a_is_object = a.isOfType(FlxObject);
+
+    	if (!a_is_object) add_group_bodies(cast a);
+
+    	return line.linecast(!a_is_object ? instance.groups[cast a] : instance.bodies[cast a], instance.world);
+  	}
+
+	/**
 	 * Creates a physics listener
 	 */
 	public static function listen(a:FlxBasic, b:FlxBasic, ?options:ListenerOptions)
