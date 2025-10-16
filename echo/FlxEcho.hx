@@ -15,6 +15,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.util.FlxColor;
+import flixel.util.FlxDirectionFlags;
 
 using Math;
 using Std;
@@ -81,7 +82,11 @@ class FlxEcho extends FlxBasic
 
 		if (instance == null)
 		{
+			#if (flixel >= "5.6.0")
+			FlxG.plugins.addPlugin(instance = new FlxEcho(options));
+			#else
 			FlxG.plugins.add(instance = new FlxEcho(options));
+			#end
 			FlxG.signals.preStateSwitch.add(on_state_switch);
 		}
 
@@ -286,8 +291,8 @@ class FlxEcho extends FlxBasic
 		{
 			if (temp_stay != null) temp_stay(a, b, c);
 			if (options.separate == null || options.separate) for (col in c) {
-				set_touching(get_object(a), [CEILING, WALL, FLOOR] [col.normal.dot(Vector2.up).round() + 1]);
-				set_touching(get_object(b), [CEILING, WALL, FLOOR] [col.normal.negate().dot(Vector2.up).round() + 1]);
+				set_touching(get_object(a), #if (flixel >= version("6.0.0")) [CEILING.toInt(), WALL.toInt(), FLOOR.toInt()] #else [CEILING, WALL, FLOOR] #end [col.normal.dot(Vector2.up).round() + 1]);
+				set_touching(get_object(b), #if (flixel >= version("6.0.0")) [CEILING.toInt(), WALL.toInt(), FLOOR.toInt()] #else [CEILING, WALL, FLOOR] #end [col.normal.negate().dot(Vector2.up).round() + 1]);
 			} 
 		}
 		#if ARCADE_PHYSICS
@@ -319,7 +324,11 @@ class FlxEcho extends FlxBasic
 
 	static inline function set_touching(object:FlxObject, touching:Int)
 	{
-		if (object.touching & touching == 0) object.touching += touching;
+		#if (flixel >= version("6.0.0"))
+		if (object.touching.toInt() & touching == 0) object.touching = FlxDirectionFlags.fromInt(object.touching.toInt() | touching);
+		#else
+		if (object.touching & touching == 0) object.touching = object.touching | touching;
+		#end
 	}
 
 	static function square_normal(normal:Vector2)

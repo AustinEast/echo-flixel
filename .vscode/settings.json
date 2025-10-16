@@ -4,5 +4,6 @@
 		"export/**/*.hx": true
 	},
 	"lime.defaultBuildConfiguration": "Debug",
-	"lime.defaultTarget": "Neko"
+	"lime.defaultTarget": "Neko",
+	"lime.projectFile": "sample/Project.xml"
 }
